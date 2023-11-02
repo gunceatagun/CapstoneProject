@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "740210454270",
+    "project_id": "upschoolcapstone",
+    "storage_bucket": "upschoolcapstone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740210454270:android:033c3c8d86b35c6690ffaf",
+        "android_client_info": {
+          "package_name": "com.gunceatagun.capstoneprojesi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwrIoZ9CvxFENiCNage8QwfK8tbDbMEyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
