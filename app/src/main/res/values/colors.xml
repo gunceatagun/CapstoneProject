@@ -5,4 +5,6 @@
     <color name="colorPrimary">#F88460</color>
     <color name="colorPrimaryDark">#7A2C13</color>
     <color name="colorAccent">#FF5C27</color>
+    <color name="salePrize">#1A6A37</color>
+
 </resources>
