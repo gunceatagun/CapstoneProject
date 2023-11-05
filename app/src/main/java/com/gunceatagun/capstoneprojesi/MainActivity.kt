@@ -6,14 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
+import com.gunceatagun.capstoneprojesi.databinding.ActivityMainBinding
+import com.gunceatagun.capstoneprojesi.databinding.ActivityUserBinding
 
-class AnasayfaActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_anasayfa)
-        auth = FirebaseAuth.getInstance()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -25,7 +29,7 @@ class AnasayfaActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.cikis_yap) {
             auth.signOut()
-            val intent = Intent(this, KullaniciActivity::class.java)
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
             finish()
         }
