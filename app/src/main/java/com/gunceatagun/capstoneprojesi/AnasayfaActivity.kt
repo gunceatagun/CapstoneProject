@@ -13,6 +13,7 @@ class AnasayfaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anasayfa)
         auth = FirebaseAuth.getInstance()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

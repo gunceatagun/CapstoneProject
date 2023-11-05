@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class AnasayfaFragment : Fragment() {
+class UrunDetayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_anasayfa, container, false)
+        return inflater.inflate(R.layout.fragment_urun_detay, container, false)
     }
+
 }
