@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        tools:context=".KullaniciActivity">
+
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="Email adresinizi giriniz"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/passwordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Parolanızı giriniz"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emailText"
+            android:layout_marginTop="50dp" />
+
+        <Button
+            android:id="@+id/buttonKayıtOl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="kayitOl"
+            android:text="Kayıt Ol"
+            app:layout_constraintEnd_toEndOf="@id/passwordText"
+            app:layout_constraintTop_toBottomOf="@id/passwordText" />
+
+        <Button
+            android:id="@+id/buttonGirisYap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="girisYap"
+            android:text="Giriş Yap"
+            app:layout_constraintStart_toStartOf="@id/passwordText"
+            app:layout_constraintTop_toBottomOf="@id/passwordText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
