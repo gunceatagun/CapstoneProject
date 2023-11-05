@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import com.gunceatagun.capstoneprojesi.databinding.ActivityMainBinding
 import com.gunceatagun.capstoneprojesi.databinding.ActivityUserBinding
@@ -16,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
         auth = FirebaseAuth.getInstance()
     }
