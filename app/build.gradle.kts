@@ -78,4 +78,6 @@ dependencies {
     //glide
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
+    //chucker
+    implementation("com.github.chuckerteam.chucker:library:4.0.0")
 }

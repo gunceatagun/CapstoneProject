@@ -43,6 +43,8 @@
                         android:layout_weight="1"
                         android:text="Ürün adı"
                         android:textSize="20dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"/>

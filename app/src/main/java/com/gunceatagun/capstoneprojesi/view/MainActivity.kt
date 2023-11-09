@@ -1,15 +1,16 @@
-package com.gunceatagun.capstoneprojesi
+package com.gunceatagun.capstoneprojesi.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
+import com.gunceatagun.capstoneprojesi.MainApplication
+import com.gunceatagun.capstoneprojesi.R
 import com.gunceatagun.capstoneprojesi.databinding.ActivityMainBinding
-import com.gunceatagun.capstoneprojesi.databinding.ActivityUserBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
         auth = FirebaseAuth.getInstance()
+        MainApplication.provideRetrofit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
