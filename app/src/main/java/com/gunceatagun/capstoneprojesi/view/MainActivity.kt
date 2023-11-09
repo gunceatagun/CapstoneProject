@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
         auth = FirebaseAuth.getInstance()
-        MainApplication.provideRetrofit()
+        MainApplication.provideRetrofit(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
