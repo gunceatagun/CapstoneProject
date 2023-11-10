@@ -2,6 +2,7 @@ package com.gunceatagun.capstoneprojesi.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.gunceatagun.capstoneprojesi.data.model.GetProductDetailResponse
 import com.gunceatagun.capstoneprojesi.data.model.GetProductsResponse
 import com.gunceatagun.capstoneprojesi.data.model.Product
 import com.gunceatagun.capstoneprojesi.data.source.remote.ProductService
@@ -12,6 +13,9 @@ import retrofit2.Response
 
 class ProductRepository(private val productService: ProductService) {
     var productsLiveData = MutableLiveData<List<Product>>()
+
+    var productDetailLiveData = MutableLiveData<Product>()
+
     var errorDataLiveData = MutableLiveData<String>()
     var loadingLiveData = MutableLiveData<Boolean>()
 
@@ -35,6 +39,32 @@ class ProductRepository(private val productService: ProductService) {
             }
 
             override fun onFailure(call: Call<GetProductsResponse>, t: Throwable) {
+                Log.e("GetProducts", t.message.orEmpty())
+                errorDataLiveData.value = t.message.orEmpty()
+                loadingLiveData.value = false
+            }
+
+        })
+    }
+
+    fun getProductDetail(id:Int){
+        loadingLiveData.value = true
+        productService.getProductDetail(id).enqueue(object :
+            Callback<GetProductDetailResponse>{
+            override fun onResponse(
+                call: Call<GetProductDetailResponse>,
+                response: Response<GetProductDetailResponse>
+            ) {
+                val results = response.body()
+                if (response.isSuccessful && results?.product != null) {
+                    productDetailLiveData.value = results.product
+                } else {
+                    errorDataLiveData.value = results?.message.orEmpty()
+                }
+                loadingLiveData.value = false
+            }
+
+            override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
                 Log.e("GetProducts", t.message.orEmpty())
                 errorDataLiveData.value = t.message.orEmpty()
                 loadingLiveData.value = false

@@ -1,26 +1,22 @@
 package com.gunceatagun.capstoneprojesi.view.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.gunceatagun.capstoneprojesi.MainApplication
-import com.gunceatagun.capstoneprojesi.data.model.GetProductDetailResponse
+import com.google.android.material.snackbar.Snackbar
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailBinding
+    private val viewModel by viewModels<DetailViewModel>()
     private var productId = 0
     private val args by navArgs<ProductDetailFragmentArgs>()
     override fun onCreateView(
@@ -37,40 +33,28 @@ class ProductDetailFragment : Fragment() {
 
         arguments?.let {
             productId = ProductDetailFragmentArgs.fromBundle(it).productId
-            getProductDetail(productId)
-           // args.productId
+            viewModel.getProductDetail(productId)
+            // args.productId
         }
+        observeData()
     }
 
-    private fun getProductDetail(id: Int) {
-   /*     MainApplication.productService?.getProductDetail(id)
-            ?.enqueue(object : Callback<GetProductDetailResponse> {
-                override fun onResponse(
-                    call: Call<GetProductDetailResponse>,
-                    response: Response<GetProductDetailResponse>
-                ) {
-                    val results = response.body()
-                    if (results?.status == 200 && results.product != null) {
-                        results.product.let {
-                            with(binding) {
-                                Glide.with(productImage).load(it.imageOne).into(productImage)
-                                productName.text = it.title
-                                productDescription.text = it.description
-                                productPrize.text = "${it.price} ₺"
-                                productPrizeSale.text = it.salePrice.toString()
-                            }
-                        }
-
-                    } else {
-                        Toast.makeText(context, results?.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
-                    Log.e("GetProductDetail", t.message.orEmpty())
-                }
-
-            }
-            )*/
+    private fun observeData() = with(binding) {
+        viewModel.productDetailLiveData.observe(viewLifecycleOwner) { product ->
+            Glide.with(productImage).load(product.imageOne).into(productImage)
+            productName.text = product.title
+            productDescription.text = product.description
+            productPrize.text = "${product.price} ₺"
+            productPrizeSale.text = product.salePrice.toString()
+        }
+        viewModel.errorDataLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            Snackbar.make(requireView(), errorMessage, 1000).show()
+            detailView.visibility = View.GONE
+            noDataText.visibility = View.VISIBLE
+            noDataText.text = "Data Bulunamadı"
+        }
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            progressBar.isVisible = isLoading
+        }
     }
 }
