@@ -1,26 +1,20 @@
 package com.gunceatagun.capstoneprojesi.view.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.gunceatagun.capstoneprojesi.MainApplication
-import com.gunceatagun.capstoneprojesi.data.model.GetProductsResponse
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductsListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductsListFragment : Fragment() {
     private lateinit var binding: FragmentProductsListBinding
     private val viewModel by viewModels<ProductListViewModel>()
-    private val productsAdapter=ProductsAdapter(onProductClick = ::onProductClick)
-
+    private val productsAdapter = ProductsAdapter(onProductClick = ::onProductClick)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,40 +25,27 @@ class ProductsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProducts()
 
-        with(binding){
+        viewModel.getProducts()
+
+        with(binding) {
             productListRecycler.adapter = productsAdapter
         }
+
         observeData()
     }
 
-    private fun observeData(){
-        viewModel.productsLiveData.observe(viewLifecycleOwner){
-
+    private fun observeData() {
+        viewModel.productsLiveData.observe(viewLifecycleOwner) { productList ->
+            productsAdapter.submitList(productList)
         }
     }
-    private fun getProducts(){
-        MainApplication.productService?.getProducts()?.enqueue(object :Callback<GetProductsResponse>{
-            override fun onResponse(
-                call: Call<GetProductsResponse>,
-                response: Response<GetProductsResponse>
-            ) {
-                val results = response.body()
-                if(results?.status == 200){
-                    productsAdapter.submitList(results.products.orEmpty())
-                }else{
-                    Toast.makeText(context,results?.message,Toast.LENGTH_LONG).show()
-                }
-            }
 
-            override fun onFailure(call: Call<GetProductsResponse>, t: Throwable) {
-                Log.e("GetProducts",t.message.orEmpty())
-            }
-
-        })
-    }
     private fun onProductClick(id: Int) {
-        findNavController().navigate(ProductsListFragmentDirections.actionProductsListFragmentToProductDetailFragment(productId = id))
+        findNavController().navigate(
+            ProductsListFragmentDirections.actionProductsListFragmentToProductDetailFragment(
+                productId = id
+            )
+        )
     }
 }

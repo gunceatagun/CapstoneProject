@@ -12,10 +12,13 @@ import com.bumptech.glide.Glide
 import com.gunceatagun.capstoneprojesi.MainApplication
 import com.gunceatagun.capstoneprojesi.data.model.GetProductDetailResponse
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailBinding
     private var productId = 0
@@ -40,7 +43,7 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun getProductDetail(id: Int) {
-        MainApplication.productService?.getProductDetail(id)
+   /*     MainApplication.productService?.getProductDetail(id)
             ?.enqueue(object : Callback<GetProductDetailResponse> {
                 override fun onResponse(
                     call: Call<GetProductDetailResponse>,
@@ -68,6 +71,6 @@ class ProductDetailFragment : Fragment() {
                 }
 
             }
-            )
+            )*/
     }
 }

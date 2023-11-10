@@ -11,7 +11,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.gunceatagun.capstoneprojesi.MainApplication
 import com.gunceatagun.capstoneprojesi.R
 import com.gunceatagun.capstoneprojesi.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
 
         auth = FirebaseAuth.getInstance()
-        MainApplication.provideRetrofit(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
