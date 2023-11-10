@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view
+package com.gunceatagun.capstoneprojesi.view.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.gunceatagun.capstoneprojesi.MainApplication
 import com.gunceatagun.capstoneprojesi.data.model.GetProductDetailResponse
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
-import com.gunceatagun.capstoneprojesi.databinding.FragmentProductsListBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -2,7 +2,6 @@ package com.gunceatagun.capstoneprojesi
 
 import android.app.Application
 import android.content.Context
-import com.chuckerteam.chucker.api.Chucker
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.gunceatagun.capstoneprojesi.data.source.remote.ProductService
 import okhttp3.Interceptor
@@ -16,7 +15,7 @@ class MainApplication : Application() {
         const val BASE_URL = "https://api.canerture.com/ecommerce/"
 
         var productService: ProductService? = null
-        fun provideRetrofit(context:Context) {
+        fun provideRetrofit(context: Context) {
 
             val chucker = ChuckerInterceptor.Builder(context).build()
 
@@ -24,7 +23,7 @@ class MainApplication : Application() {
                 addInterceptor(
                     Interceptor { chain ->
                         val builder = chain.request().newBuilder()
-                        builder.header("store","gncatagn")
+                        builder.header("store", "gncatagn")
                         return@Interceptor chain.proceed(builder.build())
                     }
                 )

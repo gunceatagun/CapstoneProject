@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.gunceatagun.capstoneprojesi.view.ProductDetailFragment"
+        android:name="com.gunceatagun.capstoneprojesi.view.detail.ProductDetailFragment"
         android:label="ProductDetailFragment"
         tools:layout="@layout/fragment_product_detail" >
         <argument

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gunceatagun.capstoneprojesi.MainApplication
 import com.gunceatagun.capstoneprojesi.data.model.GetProductsResponse
@@ -17,7 +18,9 @@ import retrofit2.Response
 
 class ProductsListFragment : Fragment() {
     private lateinit var binding: FragmentProductsListBinding
+    private val viewModel by viewModels<ProductListViewModel>()
     private val productsAdapter=ProductsAdapter(onProductClick = ::onProductClick)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,9 +36,14 @@ class ProductsListFragment : Fragment() {
         with(binding){
             productListRecycler.adapter = productsAdapter
         }
-
+        observeData()
     }
 
+    private fun observeData(){
+        viewModel.productsLiveData.observe(viewLifecycleOwner){
+
+        }
+    }
     private fun getProducts(){
         MainApplication.productService?.getProducts()?.enqueue(object :Callback<GetProductsResponse>{
             override fun onResponse(
