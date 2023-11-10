@@ -13,8 +13,19 @@ import javax.inject.Inject
 class ProductListViewModel @Inject constructor(private val productRepository: ProductRepository) : ViewModel() {
     private var _productsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
+
+    private var _errorDataLiveData = MutableLiveData<String>()
+    val errorDataLiveData: LiveData<String> get() = _errorDataLiveData
+
+    private var _loadingLiveData= MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
+
+
     init {
         _productsLiveData = productRepository.productsLiveData
+        _errorDataLiveData = productRepository.errorDataLiveData
+        _loadingLiveData = productRepository.loadingLiveData
+
     }
     fun getProducts(){
         productRepository.getProducts()

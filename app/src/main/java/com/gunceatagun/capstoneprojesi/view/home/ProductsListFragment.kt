@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +40,17 @@ class ProductsListFragment : Fragment() {
     private fun observeData() {
         viewModel.productsLiveData.observe(viewLifecycleOwner) { productList ->
             productsAdapter.submitList(productList)
+            binding.productListRecycler.visibility = View.VISIBLE
+            binding.noDataText.visibility = View.GONE
+        }
+        viewModel.errorDataLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            Snackbar.make(requireView(),errorMessage,1000).show()
+            binding.productListRecycler.visibility = View.GONE
+            binding.noDataText.visibility = View.VISIBLE
+            binding.noDataText.text = "Data Bulunamadı"
+        }
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.isVisible = isLoading
         }
     }
 
