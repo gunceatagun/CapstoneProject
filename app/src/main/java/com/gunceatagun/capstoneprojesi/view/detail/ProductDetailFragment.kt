@@ -1,5 +1,6 @@
 package com.gunceatagun.capstoneprojesi.view.detail
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,8 +45,16 @@ class ProductDetailFragment : Fragment() {
             Glide.with(productImage).load(product.imageOne).into(productImage)
             productName.text = product.title
             productDescription.text = product.description
-            productPrize.text = "${product.price} ₺"
-            productPrizeSale.text = product.salePrice.toString()
+            if (product.saleState == true) {
+                productPrize.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                productPrizeSaleRate.text = "%${product.rate} indirim "
+                productPrize.text = "${product.price} ₺"
+                productPrizeSale.text = "${product.salePrice} ₺"
+            } else {
+                productPrizeSale.visibility = View.GONE
+                productPrizeSaleRate.visibility = View.GONE
+                productPrize.text = "${product.price} ₺"
+            }
         }
         viewModel.errorDataLiveData.observe(viewLifecycleOwner) { errorMessage ->
             Snackbar.make(requireView(), errorMessage, 1000).show()
