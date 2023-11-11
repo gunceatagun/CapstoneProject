@@ -15,15 +15,26 @@ import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
-    private var _productsLiveData = MutableLiveData<Resource<List<Product>>>()
-    val productsLiveData: LiveData<Resource<List<Product>>> get() = _productsLiveData
-
-    init {
-        _productsLiveData = productRepository.products
-    }
+    private var _productsLiveData = MutableLiveData<HomeState>()
+    val productsLiveData: LiveData<HomeState> get() = _productsLiveData
 
     fun getProducts() = viewModelScope.launch {
-        productRepository.getProducts()
+        //loading
+        _productsLiveData.value = HomeState.Loading
+        _productsLiveData.value = when (val result = productRepository.getProducts()) {
+            is Resource.Success -> HomeState.SuccessState(result.data)
+            is Resource.Error -> HomeState.EmptyScreen(result.errorMessage)
+            is Resource.Fail -> HomeState.ShowPopup(result.failMessage)
+        }
     }
+
+}
+
+sealed interface HomeState {
+    object Loading : HomeState
+    data class SuccessState(val product: List<Product>) : HomeState
+    data class EmptyScreen(val failMessage: String) : HomeState
+    data class ShowPopup(val errorMessage: String) : HomeState
+
 
 }

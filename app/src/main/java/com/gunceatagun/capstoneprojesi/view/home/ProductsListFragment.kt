@@ -1,5 +1,6 @@
 package com.gunceatagun.capstoneprojesi.view.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,28 +40,34 @@ class ProductsListFragment : Fragment() {
         observeData()
     }
 
-    private fun observeData() {
+    private fun observeData() = with(binding) {
         viewModel.productsLiveData.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {
-                    binding.progressBar.gone()
-                    productsAdapter.submitList(it.data)
+                is HomeState.SuccessState -> {
+                    progressBar.gone()
+                    productsAdapter.submitList(it.product)
                 }
 
-                is Resource.Error -> {
-                    binding.progressBar.gone()
-                    Snackbar.make(requireView(), it.errorMessage, 1000).show()
-                    binding.productListRecycler.visibility = View.GONE
-                    binding.noDataText.visibility = View.VISIBLE
-                    binding.noDataText.text = "Data Bulunamadı"
+                is HomeState.EmptyScreen -> {
+                    progressBar.gone()
+                    productListRecycler.gone()
+                    noDataText.visible()
+                    noDataText.text = it.failMessage
                 }
 
-                is Resource.Fail -> {
+                is HomeState.ShowPopup -> {
                     binding.progressBar.gone()
-                    Snackbar.make(requireView(), it.failMessage, 1000).show()
+                    //Snackbar.make(requireView(), it.errorMessage, 1000).show()
+                    AlertDialog.Builder(context)
+                        .setTitle("Hata!")
+                        .setMessage("Bir şeyler ters gitti, geri giderek tekrar deneyin")
+                        .setPositiveButton("Tamam") { dialog, _ -> dialog.dismiss() }
+                        .setNegativeButton("İptal") { dialog, _ -> dialog.dismiss() }
+                        .create()
+                        .show()
                 }
 
-                Resource.Loading -> binding.progressBar.visible()
+                HomeState.Loading -> binding.progressBar.visible()
             }
 
             binding.productListRecycler.visibility = View.VISIBLE

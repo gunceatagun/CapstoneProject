@@ -34,7 +34,7 @@ class ProductDetailFragment : Fragment() {
 
         arguments?.let {
             productId = ProductDetailFragmentArgs.fromBundle(it).productId
-            viewModel.getProductDetail(productId)
+           // viewModel.getProductDetail(productId)
             // args.productId
         }
         observeData()

@@ -26,7 +26,7 @@ class DetailViewModel @Inject constructor(private val productRepository: Product
 //        _loadingLiveData = productRepository.loadingLiveData
     }
 
-    fun getProductDetail(id: Int) {
-        productRepository.getProductDetail(id)
-    }
+//    fun getProductDetail(id: Int) {
+//        productRepository.getProductDetail(id)
+//    }
 }

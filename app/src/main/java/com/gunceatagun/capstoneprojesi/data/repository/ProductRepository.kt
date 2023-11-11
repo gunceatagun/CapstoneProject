@@ -6,32 +6,31 @@ import com.gunceatagun.capstoneprojesi.data.model.Product
 import com.gunceatagun.capstoneprojesi.data.source.remote.ProductService
 
 class ProductRepository(private val productService: ProductService) {
-    var products = MutableLiveData<Resource<List<Product>>>()
+    //  var products = MutableLiveData<Resource<List<Product>>>()
 
 
-    suspend fun getProducts() {
-        products.value = Resource.Loading
-        try {
+    suspend fun getProducts(): Resource<List<Product>> {
+        return try {
             val response = productService.getProducts().body()
-            products.value = if (response?.status == 200) {
+            if (response?.status == 200) {
                 Resource.Success(response.products.orEmpty())
             } else {
                 Resource.Fail(response?.message.orEmpty())
             }
         } catch (e: Exception) {
-            products.value = Resource.Error(e.message.orEmpty())
+            Resource.Error(e.message.orEmpty())
         }
     }
 
-    suspend fun getProductDetail(id: Int) {
-        products.value = Resource.Loading
-        try {
-
-        } catch (e: Exception) {
-
-        }
-
-    }
+//    suspend fun getProductDetail(id: Int) {
+//        products.value = Resource.Loading
+//        try {
+//
+//        } catch (e: Exception) {
+//
+//        }
+//
+//    }
 
     /*
         fun getProductDetail(id: Int) {
