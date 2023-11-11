@@ -1,11 +1,11 @@
-package com.gunceatagun.capstoneprojesi.view.detail
+package com.gunceatagun.capstoneprojesi.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gunceatagun.capstoneprojesi.common.Resource
-import com.gunceatagun.capstoneprojesi.data.model.Product
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 import com.gunceatagun.capstoneprojesi.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class DetailViewModel @Inject constructor(private val productRepository: Product
 
 sealed interface DetailState {
     object Loading : DetailState
-    data class SuccessState(val product: Product) : DetailState
+    data class SuccessState(val product: ProductUI) : DetailState
     data class EmptyScreen(val failMessage: String) : DetailState
     data class ShowPopup(val errorMessage: String) : DetailState
 }

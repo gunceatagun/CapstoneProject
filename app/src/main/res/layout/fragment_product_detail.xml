@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingTop="10dp"
-        tools:context=".view.detail.ProductDetailFragment">
+        tools:context=".ui.detail.ProductDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/detailView"
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingTop="10dp"
-            tools:context=".view.detail.ProductDetailFragment">
+            tools:context=".ui.detail.ProductDetailFragment">
 
             <ImageView
                 android:id="@+id/productImage"

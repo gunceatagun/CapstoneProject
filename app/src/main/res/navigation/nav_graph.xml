@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/productsListFragment"
-        android:name="com.gunceatagun.capstoneprojesi.view.home.ProductsListFragment"
+        android:name="com.gunceatagun.capstoneprojesi.ui.home.ProductsListFragment"
         android:label="ProductsListFragment"
         tools:layout="@layout/fragment_products_list" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.gunceatagun.capstoneprojesi.view.detail.ProductDetailFragment"
+        android:name="com.gunceatagun.capstoneprojesi.ui.detail.ProductDetailFragment"
         android:label="ProductDetailFragment"
         tools:layout="@layout/fragment_product_detail" >
         <argument

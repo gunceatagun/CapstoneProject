@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view.home
+package com.gunceatagun.capstoneprojesi.ui.home
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -39,7 +39,7 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun observeData() = with(binding) {
-        viewModel.homeState.observe(viewLifecycleOwner) {state->
+        viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is HomeState.SuccessState -> {
                     progressBar.gone()

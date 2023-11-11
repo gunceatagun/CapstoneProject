@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view
+package com.gunceatagun.capstoneprojesi.ui
 
 import android.content.Intent
 import android.os.Bundle

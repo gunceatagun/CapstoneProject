@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view
+package com.gunceatagun.capstoneprojesi.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
-import com.gunceatagun.capstoneprojesi.MainApplication
 import com.gunceatagun.capstoneprojesi.R
 import com.gunceatagun.capstoneprojesi.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

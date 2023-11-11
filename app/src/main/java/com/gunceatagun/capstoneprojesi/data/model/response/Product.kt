@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.data.model
+package com.gunceatagun.capstoneprojesi.data.model.response
 
 data class Product(
     val id:Int?,

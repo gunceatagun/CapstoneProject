@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view.home
+package com.gunceatagun.capstoneprojesi.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gunceatagun.capstoneprojesi.data.model.Product
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
 import com.gunceatagun.capstoneprojesi.databinding.ProductRowItemBinding
 
 class ProductsAdapter(
-    private val onProductClick:(Int)->Unit
-) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallBack()) {
+    private val onProductClick: (Int) -> Unit
+) : ListAdapter<ProductListUI, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallBack()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProductsAdapter.ProductViewHolder {
+    ): ProductViewHolder {
         return ProductViewHolder(
             ProductRowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             onProductClick
@@ -29,25 +29,25 @@ class ProductsAdapter(
         private val binding: ProductRowItemBinding,
         private val onProductClick: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
-            with(binding){
+        fun bind(product: ProductListUI) {
+            with(binding) {
                 productName.text = product.title
-                productDescription.text = product.description
                 productPrize.text = "${product.price} ₺"
-                productPrizeInSale.text= product.salePrice.toString()
+                productPrizeInSale.text = product.salePrice.toString()
                 Glide.with(image).load(product.imageOne).into(image)
                 root.setOnClickListener {
-                    onProductClick(product.id ?: 1)
+                    onProductClick(product.id)
                 }
             }
         }
     }
 
-    class ProductDiffUtilCallBack : DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+    class ProductDiffUtilCallBack : DiffUtil.ItemCallback<ProductListUI>() {
+        override fun areItemsTheSame(oldItem: ProductListUI, newItem: ProductListUI): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+
+        override fun areContentsTheSame(oldItem: ProductListUI, newItem: ProductListUI): Boolean {
             return oldItem == newItem
         }
 

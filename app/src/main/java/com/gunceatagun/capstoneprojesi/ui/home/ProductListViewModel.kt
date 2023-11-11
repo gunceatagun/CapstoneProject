@@ -1,11 +1,11 @@
-package com.gunceatagun.capstoneprojesi.view.home
+package com.gunceatagun.capstoneprojesi.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gunceatagun.capstoneprojesi.common.Resource
-import com.gunceatagun.capstoneprojesi.data.model.Product
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
 import com.gunceatagun.capstoneprojesi.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class ProductListViewModel @Inject constructor(private val productRepository: Pr
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class SuccessState(val product: List<Product>) : HomeState
+    data class SuccessState(val product: List<ProductListUI>) : HomeState
     data class EmptyScreen(val failMessage: String) : HomeState
     data class ShowPopup(val errorMessage: String) : HomeState
 

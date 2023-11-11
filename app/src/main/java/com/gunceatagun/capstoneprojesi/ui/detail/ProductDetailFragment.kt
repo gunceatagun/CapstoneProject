@@ -1,4 +1,4 @@
-package com.gunceatagun.capstoneprojesi.view.detail
+package com.gunceatagun.capstoneprojesi.ui.detail
 
 import android.app.AlertDialog
 import android.graphics.Paint
@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.gunceatagun.capstoneprojesi.common.gone
 import com.gunceatagun.capstoneprojesi.common.visible
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
-import com.gunceatagun.capstoneprojesi.view.home.HomeState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,7 +1,7 @@
 package com.gunceatagun.capstoneprojesi.data.source.remote
 
-import com.gunceatagun.capstoneprojesi.data.model.GetProductDetailResponse
-import com.gunceatagun.capstoneprojesi.data.model.GetProductsResponse
+import com.gunceatagun.capstoneprojesi.data.model.response.GetProductDetailResponse
+import com.gunceatagun.capstoneprojesi.data.model.response.GetProductsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
