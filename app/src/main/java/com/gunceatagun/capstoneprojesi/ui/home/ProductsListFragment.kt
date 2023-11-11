@@ -30,6 +30,7 @@ class ProductsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getProducts()
+        viewModel.getSaleProducts()
 
         with(binding) {
             productListRecycler.adapter = productsAdapter
@@ -41,11 +42,14 @@ class ProductsListFragment : Fragment() {
     private fun observeData() = with(binding) {
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is HomeState.SuccessState -> {
+                is HomeState.SuccessProductState -> {
                     progressBar.gone()
-                    productsAdapter.submitList(state.product)
+                    productsAdapter.submitList(state.products)
                 }
-
+                is HomeState.SuccessSaleProductState -> {
+                    progressBar.gone()
+                    //saleProductsAdapter.submitList(state.saleProducts)
+                }
                 is HomeState.EmptyScreen -> {
                     progressBar.gone()
                     productListRecycler.gone()

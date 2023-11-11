@@ -25,6 +25,20 @@ class ProductRepository(private val productService: ProductService) {
             }
         }
 
+    suspend fun getSaleProducts(): Resource<List<ProductListUI>> =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = productService.getSaleProducts().body()
+                if (response?.status == 200) {
+                    Resource.Success(response.products.orEmpty().mapToProductListUI())
+                } else {
+                    Resource.Fail(response?.message.orEmpty())
+                }
+            } catch (e: Exception) {
+                Resource.Error(e.message.orEmpty())
+            }
+        }
+
     suspend fun getProductDetail(id: Int): Resource<ProductUI> =
         withContext(Dispatchers.IO) {
             try {

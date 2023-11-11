@@ -1,5 +1,5 @@
 package com.gunceatagun.capstoneprojesi.data.model.response
 
-data class GetProductsResponse(
+data class GetSaleProductsResponse(
     val products: List<Product>?,
 ):BaseResponse()
