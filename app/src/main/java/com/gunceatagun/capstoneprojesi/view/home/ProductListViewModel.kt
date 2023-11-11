@@ -15,13 +15,13 @@ import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
-    private var _productsLiveData = MutableLiveData<HomeState>()
-    val productsLiveData: LiveData<HomeState> get() = _productsLiveData
+    private var _homeState = MutableLiveData<HomeState>()
+    val homeState: LiveData<HomeState> get() = _homeState
 
     fun getProducts() = viewModelScope.launch {
         //loading
-        _productsLiveData.value = HomeState.Loading
-        _productsLiveData.value = when (val result = productRepository.getProducts()) {
+        _homeState.value = HomeState.Loading
+        _homeState.value = when (val result = productRepository.getProducts()) {
             is Resource.Success -> HomeState.SuccessState(result.data)
             is Resource.Error -> HomeState.EmptyScreen(result.errorMessage)
             is Resource.Fail -> HomeState.ShowPopup(result.failMessage)

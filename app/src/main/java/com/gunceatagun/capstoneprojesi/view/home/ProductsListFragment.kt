@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
-import com.gunceatagun.capstoneprojesi.common.Resource
 import com.gunceatagun.capstoneprojesi.common.gone
 import com.gunceatagun.capstoneprojesi.common.visible
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductsListBinding
@@ -41,18 +39,18 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun observeData() = with(binding) {
-        viewModel.productsLiveData.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.homeState.observe(viewLifecycleOwner) {state->
+            when (state) {
                 is HomeState.SuccessState -> {
                     progressBar.gone()
-                    productsAdapter.submitList(it.product)
+                    productsAdapter.submitList(state.product)
                 }
 
                 is HomeState.EmptyScreen -> {
                     progressBar.gone()
                     productListRecycler.gone()
                     noDataText.visible()
-                    noDataText.text = it.failMessage
+                    noDataText.text = state.failMessage
                 }
 
                 is HomeState.ShowPopup -> {

@@ -1,17 +1,19 @@
 package com.gunceatagun.capstoneprojesi.view.detail
 
+import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
+import com.gunceatagun.capstoneprojesi.common.gone
+import com.gunceatagun.capstoneprojesi.common.visible
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
+import com.gunceatagun.capstoneprojesi.view.home.HomeState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,36 +36,50 @@ class ProductDetailFragment : Fragment() {
 
         arguments?.let {
             productId = ProductDetailFragmentArgs.fromBundle(it).productId
-           // viewModel.getProductDetail(productId)
-            // args.productId
+            viewModel.getProductDetail(productId)
         }
         observeData()
     }
 
     private fun observeData() = with(binding) {
-        viewModel.productDetailLiveData.observe(viewLifecycleOwner) { product ->
-            Glide.with(productImage).load(product.imageOne).into(productImage)
-            productName.text = product.title
-            productDescription.text = product.description
-            if (product.saleState == true) {
-                productPrize.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                productPrizeSaleRate.text = "%${product.rate} indirim "
-                productPrize.text = "${product.price} ₺"
-                productPrizeSale.text = "${product.salePrice} ₺"
-            } else {
-                productPrizeSale.visibility = View.GONE
-                productPrizeSaleRate.visibility = View.GONE
-                productPrize.text = "${product.price} ₺"
+        viewModel.detailState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DetailState.SuccessState -> {
+                    progressBar.gone()
+                    Glide.with(productImage).load(state.product.imageOne).into(productImage)
+                    productName.text = state.product.title
+                    productDescription.text = state.product.description
+                    if (state.product.saleState == true) {
+                        productPrize.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                        productPrizeSaleRate.text = "%${state.product.rate} indirim "
+                        productPrize.text = "${state.product.price} ₺"
+                        productPrizeSale.text = "${state.product.salePrice} ₺"
+                    } else {
+                        productPrizeSale.gone()
+                        productPrizeSaleRate.gone()
+                        productPrize.text = "${state.product.price} ₺"
+                    }
+                }
+
+                is DetailState.EmptyScreen -> {
+                    progressBar.gone()
+                    noDataText.visible()
+                    noDataText.text = state.failMessage
+                }
+
+                is DetailState.ShowPopup -> {
+                    binding.progressBar.gone()
+                    //Snackbar.make(requireView(), it.errorMessage, 1000).show()
+                    AlertDialog.Builder(context)
+                        .setTitle("Hata!")
+                        .setMessage("Bir şeyler ters gitti, geri giderek tekrar deneyin")
+                        .setPositiveButton("Tamam") { dialog, _ -> dialog.dismiss() }
+                        .setNegativeButton("İptal") { dialog, _ -> dialog.dismiss() }
+                        .create()
+                        .show()
+                }
+                DetailState.Loading -> binding.progressBar.visible()
             }
-        }
-        viewModel.errorDataLiveData.observe(viewLifecycleOwner) { errorMessage ->
-            Snackbar.make(requireView(), errorMessage, 1000).show()
-            detailView.visibility = View.GONE
-            noDataText.visibility = View.VISIBLE
-            noDataText.text = "Data Bulunamadı"
-        }
-        viewModel.loadingLiveData.observe(viewLifecycleOwner) { isLoading ->
-            progressBar.isVisible = isLoading
         }
     }
 }
