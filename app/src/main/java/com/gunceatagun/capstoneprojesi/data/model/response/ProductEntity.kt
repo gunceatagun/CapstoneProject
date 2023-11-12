@@ -25,7 +25,7 @@ data class ProductEntity(
     @ColumnInfo(name = "saleState")
     val saleState: Boolean?,
 
-    /*@ColumnInfo(name = "description")
+    @ColumnInfo(name = "description")
     val description: String?,
 
     @ColumnInfo(name = "category")
@@ -42,5 +42,4 @@ data class ProductEntity(
 
     @ColumnInfo(name = "count")
     val count: Int?,
-    */
 )

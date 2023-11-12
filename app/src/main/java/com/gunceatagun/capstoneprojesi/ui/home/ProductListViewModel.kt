@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gunceatagun.capstoneprojesi.common.Resource
-import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 import com.gunceatagun.capstoneprojesi.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,15 +36,17 @@ class ProductListViewModel @Inject constructor(private val productRepository: Pr
         }
     }
 
-    fun addToFavorites(product: ProductListUI) = viewModelScope.launch {
-        productRepository.addToFavorites(product)
+    fun setFavoriteState(product: ProductUI) = viewModelScope.launch {
+        if (product.isFav) productRepository.deleteFromFavorites(product)
+        else productRepository.addToFavorites(product)
+        getProducts()
     }
 }
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class SuccessProductState(val products: List<ProductListUI>) : HomeState
-    data class SuccessSaleProductState(val saleProduct: List<ProductListUI>) : HomeState
+    data class SuccessProductState(val products: List<ProductUI>) : HomeState
+    data class SuccessSaleProductState(val saleProduct: List<ProductUI>) : HomeState
 
     data class EmptyScreen(val failMessage: String) : HomeState
     data class ShowPopup(val errorMessage: String) : HomeState

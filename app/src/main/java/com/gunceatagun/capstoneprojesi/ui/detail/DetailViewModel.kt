@@ -25,6 +25,12 @@ class DetailViewModel @Inject constructor(private val productRepository: Product
             is Resource.Error -> DetailState.ShowPopup(result.errorMessage)
         }
     }
+
+    fun setFavoriteState(product: ProductUI) = viewModelScope.launch {
+        if (product.isFav) productRepository.deleteFromFavorites(product)
+        else productRepository.addToFavorites(product)
+        getProductDetail(product.id)
+    }
 }
 
 sealed interface DetailState {

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.gunceatagun.capstoneprojesi.R
 import com.gunceatagun.capstoneprojesi.common.gone
 import com.gunceatagun.capstoneprojesi.common.visible
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductDetailBinding
@@ -44,11 +45,18 @@ class ProductDetailFragment : Fragment() {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is DetailState.SuccessState -> {
+                    ivFav.setOnClickListener {
+                        viewModel.setFavoriteState(state.product)
+                    }
                     progressBar.gone()
                     Glide.with(productImage).load(state.product.imageOne).into(productImage)
                     productName.text = state.product.title
                     productDescription.text = state.product.description
-                    if (state.product.saleState == true) {
+                    ivFav.setBackgroundResource(
+                        if (state.product.isFav) R.drawable.ic_fav_selected
+                        else R.drawable.ic_fav_unselected
+                    )
+                    if (state.product.saleState) {
                         productPrize.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                         productPrizeSaleRate.text = "%${state.product.rate} indirim "
                         productPrize.text = "${state.product.price} ₺"

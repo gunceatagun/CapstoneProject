@@ -11,10 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gunceatagun.capstoneprojesi.common.gone
 import com.gunceatagun.capstoneprojesi.common.visible
-import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 import com.gunceatagun.capstoneprojesi.databinding.FragmentFavoritesBinding
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notifyAll
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
@@ -92,7 +91,7 @@ class FavoritesFragment : Fragment() {
             FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailFragment(productId = id)
         )
     }
-    private fun onDeleteClick(product: ProductListUI) {
+    private fun onDeleteClick(product: ProductUI) {
         viewModel.deleteFormFavorites(product)
     }
 }

@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
+import com.gunceatagun.capstoneprojesi.R
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 import com.gunceatagun.capstoneprojesi.databinding.ItemProductBinding
 
 class ProductsAdapter(
     private val onProductClick: (Int) -> Unit,
-    private val onFavClick:(ProductListUI) ->Unit
-) : ListAdapter<ProductListUI, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallBack()) {
+    private val onFavClick:(ProductUI) ->Unit
+) : ListAdapter<ProductUI, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallBack()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,10 +31,14 @@ class ProductsAdapter(
     class ProductViewHolder(
         private val binding: ItemProductBinding,
         private val onProductClick: (Int) -> Unit,
-        private val onFavClicked: (ProductListUI) -> Unit
+        private val onFavClicked: (ProductUI) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: ProductListUI) {
+        fun bind(product: ProductUI) {
             with(binding) {
+                ivFavorite.setBackgroundResource(
+                    if (product.isFav) R.drawable.ic_fav_selected
+                    else R.drawable.ic_fav_unselected
+                )
                 productName.text = product.title
                 productPrize.text = "${product.price} ₺"
                 productPrizeInSale.text = product.salePrice.toString()
@@ -48,12 +53,12 @@ class ProductsAdapter(
         }
     }
 
-    class ProductDiffUtilCallBack : DiffUtil.ItemCallback<ProductListUI>() {
-        override fun areItemsTheSame(oldItem: ProductListUI, newItem: ProductListUI): Boolean {
+    class ProductDiffUtilCallBack : DiffUtil.ItemCallback<ProductUI>() {
+        override fun areItemsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ProductListUI, newItem: ProductListUI): Boolean {
+        override fun areContentsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem == newItem
         }
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gunceatagun.capstoneprojesi.common.Resource
-import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 import com.gunceatagun.capstoneprojesi.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -27,26 +27,26 @@ class FavoitesViewModel @Inject constructor(private val productRepository: Produ
         }
     }
 
-    fun deleteFormFavorites(productListUI: ProductListUI) = viewModelScope.launch{
-        productRepository.deleteFromFavorites(productListUI)
+    fun deleteFormFavorites(product: ProductUI) = viewModelScope.launch {
+        productRepository.deleteFromFavorites(product)
         getFavorites()
 
     }
-   /* fun getSaleProducts() = viewModelScope.launch {
-        _favoritesState.value = FavoritesState.Loading
-        _favoritesState.value = when (val saleProductResult = productRepository.getSaleProducts()) {
-            is Resource.Success -> FavoritesState.SuccessSaleProductState(saleProductResult.data)
-            is Resource.Error -> FavoritesState.EmptyScreen(saleProductResult.errorMessage)
-            is Resource.Fail -> FavoritesState.ShowPopup(saleProductResult.failMessage)
-        }
-    }*/
+    /* fun getSaleProducts() = viewModelScope.launch {
+         _favoritesState.value = FavoritesState.Loading
+         _favoritesState.value = when (val saleProductResult = productRepository.getSaleProducts()) {
+             is Resource.Success -> FavoritesState.SuccessSaleProductState(saleProductResult.data)
+             is Resource.Error -> FavoritesState.EmptyScreen(saleProductResult.errorMessage)
+             is Resource.Fail -> FavoritesState.ShowPopup(saleProductResult.failMessage)
+         }
+     }*/
 
 }
 
 sealed interface FavoritesState {
     object Loading : FavoritesState
-    data class SuccessProductState(val products: List<ProductListUI>) : FavoritesState
-    data class SuccessSaleProductState(val saleProduct: List<ProductListUI>) : FavoritesState
+    data class SuccessProductState(val products: List<ProductUI>) : FavoritesState
+    data class SuccessSaleProductState(val saleProduct: List<ProductUI>) : FavoritesState
     data class EmptyScreen(val failMessage: String) : FavoritesState
     data class ShowPopup(val errorMessage: String) : FavoritesState
 

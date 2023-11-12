@@ -10,12 +10,15 @@ import com.gunceatagun.capstoneprojesi.data.model.response.ProductEntity
 @Dao
 interface ProductDao {
     @Query("SELECT * FROM fav_products")
-    suspend fun getProducts():List<ProductEntity>
+    suspend fun getProducts(): List<ProductEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProduct(productEntity: ProductEntity)
 
     @Delete
     suspend fun deleteProduct(productEntity: ProductEntity)
+
+    @Query("SELECT productId FROM fav_products")
+    suspend fun getProductIds():List<Int>
 
 }
