@@ -33,4 +33,14 @@
             android:id="@+id/action_favoritesFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.gunceatagun.capstoneprojesi.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.gunceatagun.capstoneprojesi.ui.basket.BasketFragment"
+        android:label="BasketFragment"
+        tools:layout="@layout/fragment_basket"/>
 </navigation>
