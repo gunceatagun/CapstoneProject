@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Anasayfa" android:id="@+id/productsListFragment" android:icon="@drawable/ic_home"/>
     <item android:title="Arama" android:id="@+id/searchFragment" android:icon="@drawable/ic_search"/>
-    <item android:title="Favoriler" android:id="@+id/favoriteFragment" android:icon="@drawable/favorite_active"/>
+    <item android:title="Favoriler" android:id="@+id/favoritesFragment" android:icon="@drawable/ic_fav_selected"/>
     <item android:title="Sepet" android:id="@+id/basketFragment" android:icon="@drawable/ic_basket"/>
 </menu>

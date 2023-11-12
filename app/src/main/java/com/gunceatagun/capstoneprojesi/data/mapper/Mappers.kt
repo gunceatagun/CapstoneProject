@@ -1,6 +1,7 @@
 package com.gunceatagun.capstoneprojesi.data.mapper
 
 import com.gunceatagun.capstoneprojesi.data.model.response.Product
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductEntity
 import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
 import com.gunceatagun.capstoneprojesi.data.model.response.ProductUI
 
@@ -20,7 +21,7 @@ fun Product.mapToProductUI() =
         saleState = saleState ?: false,
     )
 
-fun List<Product>.mapToProductListUI() =
+fun List<Product>.mapProductToProductListUI() =
     map {
         ProductListUI(
             id = it.id ?: 1,
@@ -29,5 +30,27 @@ fun List<Product>.mapToProductListUI() =
             salePrice = it.salePrice ?: 0.0,
             imageOne = it.imageOne.orEmpty(),
             saleState = it.saleState ?: false,
+        )
+    }
+
+fun ProductListUI.mapToProductEntity() =
+    ProductEntity(
+        productId = id,
+        title = title,
+        price = price,
+        salePrice = salePrice,
+        imageOne = imageOne,
+        saleState = saleState
+    )
+
+fun List<ProductEntity>.mapProductEntityToProductListUI() =
+    map {entity->
+        ProductListUI(
+            id = entity.productId ?: 1,
+            title = entity.title.orEmpty(),
+            price = entity.price ?: 0.0,
+            salePrice = entity.salePrice ?: 0.0,
+            imageOne = entity.imageOne.orEmpty(),
+            saleState = entity.saleState ?: false
         )
     }

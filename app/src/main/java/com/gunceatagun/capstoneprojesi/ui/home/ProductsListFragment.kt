@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gunceatagun.capstoneprojesi.common.gone
 import com.gunceatagun.capstoneprojesi.common.visible
+import com.gunceatagun.capstoneprojesi.data.model.response.ProductListUI
 import com.gunceatagun.capstoneprojesi.databinding.FragmentProductsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductsListFragment : Fragment() {
     private lateinit var binding: FragmentProductsListBinding
     private val viewModel by viewModels<ProductListViewModel>()
-    private val productsAdapter = ProductsAdapter(onProductClick = ::onProductClick)
+    private val productsAdapter = ProductsAdapter(onProductClick = ::onProductClick, onFavClick = ::onFavClick)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,5 +84,8 @@ class ProductsListFragment : Fragment() {
                 productId = id
             )
         )
+    }
+    private fun onFavClick(product: ProductListUI) {
+        viewModel.addToFavorites(product)
     }
 }

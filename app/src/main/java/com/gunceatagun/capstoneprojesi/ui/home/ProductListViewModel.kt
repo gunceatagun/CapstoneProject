@@ -35,6 +35,10 @@ class ProductListViewModel @Inject constructor(private val productRepository: Pr
             is Resource.Fail -> HomeState.ShowPopup(saleProductResult.failMessage)
         }
     }
+
+    fun addToFavorites(product: ProductListUI) = viewModelScope.launch {
+        productRepository.addToFavorites(product)
+    }
 }
 
 sealed interface HomeState {

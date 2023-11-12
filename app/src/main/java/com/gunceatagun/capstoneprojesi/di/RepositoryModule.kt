@@ -1,6 +1,7 @@
 package com.gunceatagun.capstoneprojesi.di
 
 import com.gunceatagun.capstoneprojesi.data.repository.ProductRepository
+import com.gunceatagun.capstoneprojesi.data.source.local.ProductDao
 import com.gunceatagun.capstoneprojesi.data.source.remote.ProductService
 import dagger.Module
 import dagger.Provides
@@ -13,5 +14,6 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideProductRepository(productService: ProductService) = ProductRepository(productService)
+    fun provideProductRepository(productService: ProductService, productDao: ProductDao) =
+        ProductRepository(productService, productDao)
 }
