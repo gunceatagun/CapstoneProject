@@ -30,7 +30,20 @@ class ProductRepository(
                 Resource.Error(e.message.orEmpty())
             }
         }
-
+    suspend fun getCartProducts(userId:String): Resource<List<ProductUI>> =
+        withContext(Dispatchers.IO) {
+            try {
+                val favorites = productDao.getProductIds()
+                val response = productService.getCartProducts(userId).body()
+                if (response?.status == 200) {
+                    Resource.Success(response.products.orEmpty().mapProductToProductUI(favorites))
+                } else {
+                    Resource.Fail(response?.message.orEmpty())
+                }
+            } catch (e: Exception) {
+                Resource.Error(e.message.orEmpty())
+            }
+        }
     suspend fun getSaleProducts(): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
             try {
@@ -61,6 +74,7 @@ class ProductRepository(
                 Resource.Error(e.message.orEmpty())
             }
         }
+
 
     suspend fun addToFavorites(product: ProductUI) {
         productDao.addProduct(product.mapToProductEntity())

@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/basketFragment"
-        android:name="com.gunceatagun.capstoneprojesi.ui.basket.BasketFragment"
+        android:name="com.gunceatagun.capstoneprojesi.ui.basket.CartFragment"
         android:label="BasketFragment"
-        tools:layout="@layout/fragment_basket"/>
+        tools:layout="@layout/fragment_cart"/>
 </navigation>
